@@ -3,7 +3,7 @@ import openpyxl
 # Function to load student data from the Excel file
 def load_student_data(excel_file):
     workbook = openpyxl.load_workbook(excel_file)
-    sheet = workbook["Sheet1"]
+    sheet = workbook["Quiz Results"]
 
     data = []
     for row in sheet.iter_rows(values_only=True):
@@ -32,7 +32,7 @@ def update_leaderboard(student_data):
 def save_leaderboard(excel_file, updated_leaderboard):
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = "Sheet2"
+    sheet.title = "Leaderboard"
 
     for row in updated_leaderboard:
         sheet.append(row)
@@ -40,15 +40,15 @@ def save_leaderboard(excel_file, updated_leaderboard):
     workbook.save(excel_file)
 
 def main():
-    excel_file = "your_excel_file.xlsx"  # Replace with your Excel file path
+    excel_file = "Documents\10ScienceQuizResults.xlsx"  # Replace with your Excel file path
 
-    # Load student data from Sheet1
+    # Load student data from Quiz Results
     student_data = load_student_data(excel_file)
 
     # Update the leaderboard
     updated_leaderboard = update_leaderboard(student_data)
 
-    # Save the updated leaderboard to Sheet2
+    # Save the updated leaderboard to Leaderboard
     save_leaderboard(excel_file, updated_leaderboard)
 
 if __name__ == "__main__":
