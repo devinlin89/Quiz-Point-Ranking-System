@@ -6,7 +6,7 @@ def format_subject_quiz_name(input_string):
         "phy": "Physics",
     }
 
-    # Split the input string into parts using "_" as the separator
+    # Split the input string into parts at "_"
     parts = input_string.split("_")
 
     # Check if the first part (subject abbreviation) is in the dictionary
