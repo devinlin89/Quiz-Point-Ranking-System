@@ -8,5 +8,12 @@
     ],
 
     "CMA": 75,
-    "Students": 6
+
+    "students": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+    ]
 }
