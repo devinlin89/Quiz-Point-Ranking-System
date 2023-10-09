@@ -1,3 +1,8 @@
-{
-    "quizzes": ["bio_1", "phy_1", "chem_1", "phy_2", "bio_2", "chem_2"]
-}
+[
+    "bio_1",
+    "phy_1",
+    "chem_1",
+    "phy_2",
+    "bio_2",
+    "chem_2"
+]
