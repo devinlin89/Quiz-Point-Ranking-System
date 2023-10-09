@@ -1,65 +1,80 @@
 from open_json import open_json
-from utils import format_subject_quiz_name
+from print_rankings import *
 
-CMA = open_json("config")["CMA"]
+def format_subject_quiz_name(input_string):
+    # Create a dictionary mapping subject abbreviations to full names
+    subject_mapping = {
+        "bio": "Biology",
+        "chem": "Chemistry",
+        "phy": "Physics",
+    }
 
-points = open_json("config")["points"]
+    # Split the input string into parts at "_"
+    parts = input_string.split("_")
 
-student_lst = open_json("config")["students"]
-student_points_dict = {item: 0 for item in student_lst}
-print(student_points_dict)
+    # Check if the first part (subject abbreviation) is in the dictionary
+    if parts[0] in subject_mapping:
+        # If it's in the dictionary, replace it with the full name
+        parts[0] = subject_mapping[parts[0]] + " Quiz"
 
-quizzes = open_json("quizzes")
+    # Join the parts back together with spaces
+    result = " ".join(parts)
 
-for quiz in quizzes:
-    print(f"# {format_subject_quiz_name(quiz)}")
-    print(" ")
+    return result
 
-    current_quiz_scores = open_json(quiz)
-    sorted_quiz_scores = sorted(current_quiz_scores.items(), key=lambda x: x[1], reverse=True)
+def load_config():
+    # Loads all the config variables
 
-    # Quiz Rankings
-    print("## Quiz Rankings")
-    print(" ")
-    sorted_students = [student[0] for student in sorted_quiz_scores]
+    config = open_json("config")
+    CMA = config["CMA"]
+    points = config["points"]
+    students = config["students"]
+    return CMA, points, students
 
-    # Loop through every student to print out the rankings
-    for count, student in enumerate(sorted_students, start=1):
-        print(f"{count}. {student}")
+def load_quiz_data(quiz):
+    return open_json(quiz)
 
-    print(" ")
+def main():
+    # Loads in global variables from config.json
+    CMA, points, students = load_config()
 
-    # Finds students that received scores above 75
-    filtered_students = [student for student in sorted_students if current_quiz_scores.get(student, 0) >= CMA]
+    # Creates an empty student points dictionary in the form of "student: 0"
+    student_points_dict = {item: 0 for item in students}
 
-    # Students who receive scores above 75 and are within the top 5
-    # will receive points according to the point rules in config.json
-    print("## Points Gained")
-    print(" ")
+    # Gets quiz list from quizzes.json
+    quizzes = open_json("quizzes")
 
-    new_points = dict(zip(filtered_students, points))
+    for quiz in quizzes:
+        # Loops through all quizzes in the quizzes list and does the following things:
+        # 1. Find and print quiz rankings
+        # 2. Find and print points gained
+        # 3. Print new championship standings
 
-    count = 1
+        # Formats and prints current quiz name
+        print(f"# {format_subject_quiz_name(quiz)}\n")
 
-    for student, points_gained in new_points.items():
-        print(f"{count}. {student}: {points_gained}")
-        count += 1
+        # Loads in the scores from the current quiz.json
+        current_quiz_scores = load_quiz_data(quiz)
 
-    print(" ")
+        # Converts the dictionary into a list of tuples from highest to lowest
+        sorted_quiz_scores = sorted(current_quiz_scores.items(), key=lambda x: x[1], reverse=True)
 
-    # Adds the new points gained into the original point value of all students
-    print("## Championship Standings")
-    print(" ")
+        # Creates list of quiz rankings and prints it out
+        sorted_students = [student[0] for student in sorted_quiz_scores]
+        print_quiz_rankings(sorted_students)
 
-    for student, points_gained in new_points.items():
-        student_points_dict[student] += points_gained
+        # Creates list of students which get above CMA (75 in this case)
+        filtered_students = [student for student in sorted_students if current_quiz_scores.get(student, 0) >= CMA]
 
-    # Loops through all students to print the championship standings
-    count = 1
+        # Point rules:
+        # 1. Student must have a score above 75 to gain points
+        # 2. Students must be in the top 6 to gain points
+        # according to the distribution in config.json
+        print_points_gained(dict(zip(filtered_students, points)))
 
-    for key, value in student_points_dict.items():
-        print(f"{count}. {key}: {value}")
-        count += 1
+        # Sums the points gained in the quiz with current total points and prints it out
+        update_championship_standings(student_points_dict, dict(zip(filtered_students, points)))
+        print_championship_standings(student_points_dict)
 
-    print(" ")
-
+if __name__ == "__main__":
+    main()
