@@ -1,0 +1,12 @@
+{
+    "quiz_list": [
+    "bio_1",
+    "phy_1",
+    "chem_1",
+    "phy_2",
+    "bio_2",
+    "chem_2"
+    ],
+
+    "quiz_folder": "c:/Users/USER/Documents/School/Science Quiz Scores"
+}

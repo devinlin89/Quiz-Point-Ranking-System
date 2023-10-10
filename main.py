@@ -27,8 +27,16 @@ def load_config():
     students = config["students"]
     return CMA, points_distribution, students
 
-def load_quiz_data(quiz):
-    return open_json(quiz)
+def load_quiz_data(quiz_folder, quiz):
+    file_path = f"{quiz_folder}/{quiz}"
+
+    return open_json(file_path)
+
+def load_quiz_list():
+    quizzes = open_json("list_quizzes")["quiz_list"]
+    quiz_folder = open_json("list_quizzes")["quiz_folder"]
+
+    return quizzes, quiz_folder
 
 def main():
     # Loads in global variables from config.json
@@ -38,7 +46,7 @@ def main():
     student_points_dict = {item: 0 for item in students}
 
     # Gets quiz list from quizzes.json
-    quizzes = open_json("quizzes")
+    quizzes, quiz_folder = load_quiz_list()
 
     for quiz in quizzes:
         # Loops through all quizzes in the quizzes list and does the following things:
@@ -50,7 +58,7 @@ def main():
         print(f"# {format_subject_quiz_name(quiz)}\n")
 
         # Loads in the scores from the current quiz.json
-        current_quiz_scores = load_quiz_data(quiz)
+        current_quiz_scores = load_quiz_data(quiz_folder, quiz)
 
         # Converts the dictionary into a list of tuples from highest to lowest
         sorted_quiz_scores = sorted(current_quiz_scores.items(), key=lambda x: x[1], reverse=True)
