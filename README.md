@@ -21,7 +21,7 @@ The current overall championship points of the students will be added with the p
 ### Dependencies
 
 * Python 3.8 or higher
-* Reccommended Python 3.11.6
+* Recommended Python 3.11.6
 
 ### Installing
 
