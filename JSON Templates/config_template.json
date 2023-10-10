@@ -1,0 +1,29 @@
+{
+    "points_distribution": [
+        10,
+        9,
+        8,
+        6,
+        5,
+        4,
+        3,
+        2,
+        1
+    ],
+
+    "subject_mapping": {
+        "subA": "Subject A",
+        "subB": "Subject B"
+    },
+
+    "students": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+    ],
+
+    "CMA": 75,
+    "quiz_folder": "c:/Users/USER/foldername"
+}
