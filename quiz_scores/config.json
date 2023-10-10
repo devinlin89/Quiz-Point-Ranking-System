@@ -1,5 +1,5 @@
 {
-    "points": [
+    "points_distribution": [
         25,
         15,
         10,
@@ -7,7 +7,11 @@
         5
     ],
 
-    "CMA": 75,
+    "subject_mapping": {
+        "bio": "Biology",
+        "chem": "Chemistry",
+        "phy": "Physics"
+    },
 
     "students": [
         "a",
@@ -15,5 +19,7 @@
         "c",
         "d",
         "e"
-    ]
+    ],
+
+    "CMA": 75
 }

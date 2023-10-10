@@ -3,11 +3,7 @@ from print_rankings import *
 
 def format_subject_quiz_name(input_string):
     # Create a dictionary mapping subject abbreviations to full names
-    subject_mapping = {
-        "bio": "Biology",
-        "chem": "Chemistry",
-        "phy": "Physics",
-    }
+    subject_mapping = open_json("config")["subject_mapping"]
 
     # Split the input string into parts at "_"
     parts = input_string.split("_")
@@ -27,16 +23,16 @@ def load_config():
 
     config = open_json("config")
     CMA = config["CMA"]
-    points = config["points"]
+    points_distribution = config["points_distribution"]
     students = config["students"]
-    return CMA, points, students
+    return CMA, points_distribution, students
 
 def load_quiz_data(quiz):
     return open_json(quiz)
 
 def main():
     # Loads in global variables from config.json
-    CMA, points, students = load_config()
+    CMA, points_distribution, students = load_config()
 
     # Creates an empty student points dictionary in the form of "student: 0"
     student_points_dict = {item: 0 for item in students}
@@ -70,10 +66,10 @@ def main():
         # 1. Student must have a score above 75 to gain points
         # 2. Students must be in the top 6 to gain points
         # according to the distribution in config.json
-        print_points_gained(dict(zip(filtered_students, points)))
+        print_points_gained(dict(zip(filtered_students, points_distribution)))
 
         # Sums the points gained in the quiz with current total points and prints it out
-        update_championship_standings(student_points_dict, dict(zip(filtered_students, points)))
+        update_championship_standings(student_points_dict, dict(zip(filtered_students, points_distribution)))
         print_championship_standings(student_points_dict)
 
 if __name__ == "__main__":
