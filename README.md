@@ -103,12 +103,21 @@ Contributors names and contact info
 * Github: [@devinlin89](https://github.com/devinlin89)
 * Twitter: [@devinlin89](https://twitter.com/devinlin89)
 * Instagram: [@devin.lin89](https://www.instagram.com/devin.lin89/)
+* Discord: @devinlin89
 
 #### **Kyle Temaja** (Contributor)
+
+* Github: [KyleTemajaWashere](https://github.com/KyleTemajaWashere)
+* Instagram: [yeet_boiz_2019](https://www.instagram.com/yeet_boiz_2019/)
+* Discord: @ye12343
 
 #### **Therius Aaron Chen** (Contributor)
 
 #### **Nicholas Richie Widarta** (Contributor)
+
+* Github: [RiverLogic](https://github.com/RiverLogic)
+* Instagram : [@nichc_n](https://www.instagram.com/nichc_n)
+* Discord : RiverLogic#2547
 
 ## Version History
 
