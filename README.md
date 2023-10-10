@@ -32,7 +32,7 @@ The current overall championship points of the students will be added with the p
 
 * How to run the program
 * Copy the config_template.json file and name it config.json
-* Modify config.json by filling in the necesarry data
+* Modify config.json by filling in the necessary data
 
 Example of a completed config.json file:
 ```json
