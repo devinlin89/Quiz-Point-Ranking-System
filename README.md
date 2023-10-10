@@ -14,7 +14,7 @@ The rankings of all the students in order of their results for an individual qui
 Depending on the placement of a student on the ranking, they will receive a certain amount of points.
 
 #### **Championship Standings**
-The current overall championship points of the students will be added with the points gained of the quiz. 
+The current overall championship points of the students will be added with the points gained of the quiz.
 
 ## Getting Started
 
