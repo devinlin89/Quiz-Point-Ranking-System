@@ -27,7 +27,7 @@ def load_config():
 
     config = open_json("config")
     CMA = config["CMA"]
-    points = config["points"]
+    points_distribution = config["points"]
     students = config["students"]
     return CMA, points, students
 
@@ -70,10 +70,10 @@ def main():
         # 1. Student must have a score above 75 to gain points
         # 2. Students must be in the top 6 to gain points
         # according to the distribution in config.json
-        print_points_gained(dict(zip(filtered_students, points)))
+        print_points_gained(dict(zip(filtered_students, points_distribution)))
 
         # Sums the points gained in the quiz with current total points and prints it out
-        update_championship_standings(student_points_dict, dict(zip(filtered_students, points)))
+        update_championship_standings(student_points_dict, dict(zip(filtered_students, points_distribution)))
         print_championship_standings(student_points_dict)
 
 if __name__ == "__main__":
