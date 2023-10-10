@@ -25,28 +25,29 @@ def load_config():
     CMA = config["CMA"]
     points_distribution = config["points_distribution"]
     students = config["students"]
-    return CMA, points_distribution, students
+    quiz_folder = config["quiz_folder"]
+
+    return CMA, points_distribution, students, quiz_folder
 
 def load_quiz_data(quiz_folder, quiz):
     file_path = f"{quiz_folder}/{quiz}"
 
     return open_json(file_path)
 
-def load_quiz_list():
-    quizzes = open_json("list_quizzes")["quiz_list"]
-    quiz_folder = open_json("list_quizzes")["quiz_folder"]
+def load_quiz_list(quiz_folder):
+    file_path = f"{quiz_folder}/list_quizzes"
 
-    return quizzes, quiz_folder
+    return open_json(file_path)
 
 def main():
     # Loads in global variables from config.json
-    CMA, points_distribution, students = load_config()
+    CMA, points_distribution, students, quiz_folder = load_config()
 
     # Creates an empty student points dictionary in the form of "student: 0"
     student_points_dict = {item: 0 for item in students}
 
     # Gets quiz list from quizzes.json
-    quizzes, quiz_folder = load_quiz_list()
+    quizzes = load_quiz_list(quiz_folder)
 
     for quiz in quizzes:
         # Loops through all quizzes in the quizzes list and does the following things:
