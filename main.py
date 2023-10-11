@@ -39,6 +39,27 @@ def load_quiz_list(quiz_folder):
 
     return open_json(file_path)
 
+
+def find_keys_with_duplicate_values(d, points_dict):
+    value_to_keys = {}
+    duplicates = []
+
+    for key, value in d.items():
+        if value in value_to_keys:
+            value_to_keys[value].append(key)
+        else:
+            value_to_keys[value] = [key]
+
+    for value, keys in value_to_keys.items():
+        if len(keys) > 1:
+            duplicates.extend(keys)
+
+    # Sort the duplicates based on points from the points_dict
+    duplicates.sort(key=lambda key: points_dict[key])
+
+    return duplicates
+
+
 def main():
     # Loads in global variables from config.json
     CMA, points_distribution, students, quiz_folder = load_config()
@@ -65,7 +86,19 @@ def main():
         sorted_quiz_scores = sorted(current_quiz_scores.items(), key=lambda x: x[1], reverse=True)
 
         # Creates list of quiz rankings and prints it out
-        sorted_students = [student[0] for student in sorted_quiz_scores]
+        sorted_students = []
+
+        # Loop through each student in sorted_quiz_scores and sort using the sorting_key function
+
+        students_same_score = find_keys_with_duplicate_values(current_quiz_scores, student_points_dict)
+
+        for student_score in sorted(sorted_quiz_scores):
+            student = student_score[0]
+
+            sorted_students.append(student)
+
+        sorted_students = sorted(sorted_students, key=lambda x: students_same_score.index(x) if x in students_same_score else len(students_same_score))
+
         print_quiz_rankings(sorted_students)
 
         # Creates list of students which get above CMA (75 in this case)
@@ -79,7 +112,6 @@ def main():
 
         # Sums the points gained in the quiz with current total points and prints it out
         update_championship_standings(student_points_dict, dict(zip(filtered_students, points_distribution)))
-        print_championship_standings(student_points_dict)
 
 if __name__ == "__main__":
     main()
